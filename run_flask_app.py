@@ -6,7 +6,7 @@ from pathlib import Path
 import json
 from flask_app import db, app
 from flask_app.model import Apis
-from utils import API
+from utils.models import API
 
 json_path = Path(app.root_path).parent.joinpath(
     "api.json")
@@ -74,10 +74,10 @@ def sqlite2json():
             apis_.append(api.dict())
         except:
             pass
-    print(apis_)
+    # print(apis_)
     with open(json_path, mode="w", encoding="utf8") as j:
         try:
-            json.dump(apis_, j, ensure_ascii=False, sort_keys=False)
+            json.dump(apis_, j, ensure_ascii=False, sort_keys=False, indent=4)
             logger.success("sqlite->json 成功!")
         except Exception:
             logger.exception("写入到 json 文件错误!")
